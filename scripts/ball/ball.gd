@@ -32,6 +32,8 @@ func move(delta):
 
 func _physics_process(delta: float) -> void:
 	move(delta)
+	if (Input.is_action_pressed("switch")):
+		owner_name = ""
 
 
 func _on_body_entered(body: Node2D) -> void:
