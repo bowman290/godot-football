@@ -9,14 +9,14 @@ func _ready() -> void:
 	player = get_node("../Player")
 
 func move(delta):
-
 	if (owner_name == "kev"):
 		if is_instance_valid(player):
 			
 			var offset: Vector2 = player.position
 			offset.y += 1;
 			if (player.movementDirection == "up"):
-				offset.y -= 4;
+				offset.y -= 5;
+				self.z_index = 1;
 			elif (player.movementDirection == "right"):
 				offset.x += 6;
 			elif (player.movementDirection == "down"):
@@ -26,6 +26,7 @@ func move(delta):
 			else:
 				offset.x += 6;
 			
+
 			self.position = offset
 		
 
