@@ -3,6 +3,7 @@ extends Area2D
 var player: CharacterBody2D
 var speed: float = 10
 var owner_name: String = ""
+var direction: Vector2 = Vector2(0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -11,25 +12,24 @@ func _ready() -> void:
 func move(delta):
 	if (owner_name == "kev"):
 		if is_instance_valid(player):
+			if (!player.isKicking):
+				print(player.isKicking)
+				var offset: Vector2 = player.global_position
+				offset.y += 2;
+				if (player.movementDirection == "up"):
+					offset.y -= 6;
+					self.z_index = 1;
+				elif (player.movementDirection == "right"):
+					offset.x += 5;
+				elif (player.movementDirection == "down"):
+					offset.y += 3;
+				elif (player.movementDirection == "left"):
+					offset.x -= 5;
+				else:
+					offset.x += 6;
+				self.global_position = offset
 			
-			var offset: Vector2 = player.position
-			offset.y += 1;
-			if (player.movementDirection == "up"):
-				offset.y -= 5;
-				self.z_index = 1;
-			elif (player.movementDirection == "right"):
-				offset.x += 6;
-			elif (player.movementDirection == "down"):
-				offset.y += 4;
-			elif (player.movementDirection == "left"):
-				offset.x -= 6;
-			else:
-				offset.x += 6;
-			
-
-			self.position = offset
 		
-
 func _physics_process(delta: float) -> void:
 	move(delta)
 	if (Input.is_action_pressed("switch")):

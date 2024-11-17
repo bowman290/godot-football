@@ -8,9 +8,14 @@ var speed: int
 var movementDirection: String = ""
 var item: String
 var dying: bool = false;
+var isKicking: bool = false;
+var ball: Area2D;
 
 @onready var _animated_sprite = $AnimatedSprite2D
+@onready var _target = $Target
 
+func _ready() -> void:
+	ball = get_node("../Ball")
 
 func get_input():
    # We create a local variable to store the input direction.
@@ -18,10 +23,15 @@ func get_input():
 
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("right"):
+		_animated_sprite.flip_h = false
+		$Shadow.flip_h = false
 		_animated_sprite.play("runRight")
 		direction.x += 1
 		movementDirection = "right"
+		
 	elif Input.is_action_pressed("left"):
+		_animated_sprite.flip_h = false
+		$Shadow.flip_h = false
 		_animated_sprite.play("runLeft")
 		direction.x -= 1
 		movementDirection = "left"
@@ -35,7 +45,9 @@ func get_input():
 		movementDirection = "up"
 	else:
 		_animated_sprite.play("idle")
-		movementDirection = ""
+		if (movementDirection == "left"):
+			_animated_sprite.flip_h = true
+			$Shadow.flip_h = true
 
 	if Input.is_action_pressed("run"):
 		_animated_sprite.speed_scale = 3
@@ -46,6 +58,28 @@ func get_input():
 
 	velocity = direction * speed
 
-func _physics_process(_delta):
+	
+func kickBall(delta, target_pos):
+	
+	ball.owner_name = "";
+	ball.direction = target_pos;
+	ball.position += ball.direction * ball.speed * delta
+	isKicking = false;
+
+
+func kickCheck(delta):
+	if Input.is_action_pressed("kick") and !isKicking:
+		var target_position: Vector2 = (get_global_mouse_position() - ball.global_position).normalized()
+		isKicking = true;
+		kickBall(delta, target_position)
+		
+
+func _physics_process(delta: float):
+	_target.look_at(get_global_mouse_position())
+	kickCheck(delta)
 	get_input()
 	move_and_slide()
+
+
+func _on_kick_timer_timeout() -> void:
+	pass

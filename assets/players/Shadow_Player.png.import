@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4rnpr7fqa6pj"
-path="res://.godot/imported/Ball_2x2_Sheet.png-0f6bd6308fc2e4d775a3ee84bdd73289.ctex"
+uid="uid://ctrq2843spq36"
+path="res://.godot/imported/Shadow_Player.png-96ff6a80c03d8709084f8d64fd68459b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Ball_2x2_Sheet.png"
-dest_files=["res://.godot/imported/Ball_2x2_Sheet.png-0f6bd6308fc2e4d775a3ee84bdd73289.ctex"]
+source_file="res://assets/players/Shadow_Player.png"
+dest_files=["res://.godot/imported/Shadow_Player.png-96ff6a80c03d8709084f8d64fd68459b.ctex"]
 
 [params]
 
