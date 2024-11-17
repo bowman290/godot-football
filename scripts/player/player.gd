@@ -12,6 +12,7 @@ var item: String
 var dying: bool = false;
 var isKicking: bool = false;
 var ball: Area2D;
+var kickHoldingTime = 0;
 
 @onready var _animated_sprite = $AnimatedSprite2D
 @onready var _target = $Target
@@ -59,9 +60,15 @@ func get_input():
 		speed = walk_speed
 
 	if Input.is_action_pressed("kick") and !isKicking and ball.owner_name == player_name:
+		kickHoldingTime += 1
+
+	if Input.is_action_just_released("kick") and !isKicking and ball.owner_name == player_name:
+		print(kickHoldingTime)
+
 		ball.ballKicked = true
 		ball.direction = (get_global_mouse_position() - self.global_position).normalized()
 	
+	# create movement velocity
 	velocity = direction * speed
 
 func _physics_process(delta: float):
