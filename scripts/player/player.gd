@@ -52,6 +52,7 @@ func get_input():
 			_animated_sprite.flip_h = true
 			$Shadow.flip_h = true
 
+	# if running
 	if Input.is_action_pressed("run"):
 		_animated_sprite.speed_scale = 3
 		speed = run_speed
@@ -59,6 +60,7 @@ func get_input():
 		_animated_sprite.speed_scale = 1
 		speed = walk_speed
 
+	# check if kicking the ball
 	if Input.is_action_pressed("kick") and !isKicking and ball.owner_name == player_name:
 		kickHoldingTime += 1
 
