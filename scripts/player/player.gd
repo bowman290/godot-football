@@ -5,6 +5,8 @@ var speed: int
 @export var run_speed: int = 50
 @export var health: int = 50
 
+var player_name: String = "kev"
+
 var movementDirection: String = ""
 var item: String
 var dying: bool = false;
@@ -56,27 +58,21 @@ func get_input():
 		_animated_sprite.speed_scale = 1
 		speed = walk_speed
 
+	if Input.is_action_pressed("kick") and !isKicking and ball.owner_name == player_name:
+		ball.ballKicked = true
+	
 	velocity = direction * speed
 
 	
-func kickBall(delta, target_pos):
-	
-	ball.owner_name = "";
-	ball.direction = target_pos;
-	ball.position += ball.direction * ball.speed * delta
-	isKicking = false;
+#func kickBall(delta, target_pos):
+#	ball.owner_name = "";
+#	ball.direction = target_pos;
+#	ball.position += ball.direction * ball.speed * delta
+#	isKicking = false;
 
-
-func kickCheck(delta):
-	if Input.is_action_pressed("kick") and !isKicking:
-		var target_position: Vector2 = (get_global_mouse_position() - ball.global_position).normalized()
-		isKicking = true;
-		kickBall(delta, target_position)
-		
 
 func _physics_process(delta: float):
 	_target.look_at(get_global_mouse_position())
-	kickCheck(delta)
 	get_input()
 	move_and_slide()
 
