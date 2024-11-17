@@ -60,16 +60,9 @@ func get_input():
 
 	if Input.is_action_pressed("kick") and !isKicking and ball.owner_name == player_name:
 		ball.ballKicked = true
+		ball.direction = (get_global_mouse_position() - self.global_position).normalized()
 	
 	velocity = direction * speed
-
-	
-#func kickBall(delta, target_pos):
-#	ball.owner_name = "";
-#	ball.direction = target_pos;
-#	ball.position += ball.direction * ball.speed * delta
-#	isKicking = false;
-
 
 func _physics_process(delta: float):
 	_target.look_at(get_global_mouse_position())

@@ -1,7 +1,7 @@
 extends Area2D
 
 var player: CharacterBody2D
-var speed: float = 10
+var speed: float = 40
 var owner_name: String = ""
 var direction: Vector2 = Vector2(0, 0)
 
@@ -11,7 +11,7 @@ var ballKicked = false
 func _ready() -> void:
 	player = get_node("../Player")
 
-func move(delta):
+func move():
 	if (owner_name != ""):
 		if is_instance_valid(player):
 			if (!ballKicked):
@@ -33,11 +33,10 @@ func move(delta):
 func kickCheck(delta):
 	if (ballKicked):
 		owner_name = ""
-		var target_direction: Vector2 = (get_global_mouse_position() - self.global_position).normalized()
-		self.position += target_direction * speed * delta
+		self.position += direction * speed * delta
 		
 func _physics_process(delta: float) -> void:
-	move(delta)
+	move()
 	kickCheck(delta)
 	if (Input.is_action_pressed("switch")):
 		owner_name = ""
