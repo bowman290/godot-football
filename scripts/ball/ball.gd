@@ -6,6 +6,9 @@ var owner_name: String = ""
 var direction: Vector2 = Vector2(0, 0)
 
 var ballKicked = false
+var traveledDistance: float = float()
+var startPosition: Vector2 = Vector2(0, 0)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,8 +35,13 @@ func move():
 
 func kickCheck(delta):
 	if (ballKicked):
-		owner_name = ""
-		self.position += direction * speed * delta
+		if traveledDistance < 20:
+			owner_name = ""
+			self.position += direction * speed * delta
+			traveledDistance = self.position.distance_to(startPosition)
+		else:
+			traveledDistance = 0
+			ballKicked = false
 		
 func _physics_process(delta: float) -> void:
 	move()

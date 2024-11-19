@@ -65,11 +65,10 @@ func get_input():
 		kickHoldingTime += 1
 
 	if Input.is_action_just_released("kick") and !isKicking and ball.owner_name == player_name:
-		print(kickHoldingTime)
-
-		ball.ballKicked = true
 		ball.direction = (get_global_mouse_position() - self.global_position).normalized()
-	
+		ball.startPosition = ball.global_position
+		ball.ballKicked = true
+
 	# create movement velocity
 	velocity = direction * speed
 
