@@ -5,9 +5,8 @@ var speed: float = 40
 var owner_name: String = ""
 var direction: Vector2 = Vector2(0, 0)
 
-var ballKicked = false
-var traveledDistance: float = float()
-var startPosition: Vector2 = Vector2(0, 0)
+var ballKicked: bool = false
+var traveledDistance: float = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,13 +34,15 @@ func move():
 
 func kickCheck(delta):
 	if (ballKicked):
-		if traveledDistance < 20:
+		if traveledDistance <= 100:
+			print(player.kickHoldingTime)
 			owner_name = ""
-			self.position += direction * speed * delta
-			traveledDistance = self.position.distance_to(startPosition)
+			self.global_position += direction * speed * delta
+			traveledDistance += (direction * speed * delta).length()
 		else:
 			traveledDistance = 0
 			ballKicked = false
+	
 		
 func _physics_process(delta: float) -> void:
 	move()
