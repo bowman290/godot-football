@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://boyats71jctcd" path="res://scenes/player/player.tscn" id="1_kwrns"]
 [ext_resource type="Texture2D" uid="uid://bghkiqtpsnces" path="res://assets/Ready_Made_Pitch_And_Stadium.png" id="1_l3dxa"]
-[ext_resource type="PackedScene" uid="uid://c80krgvxi6loe" path="res://scenes/ball/ball.tscn" id="3_8vjx7"]
+[ext_resource type="PackedScene" uid="uid://y43nka1x3veu" path="res://scenes/ball/ball.tscn" id="3_8vjx7"]
 
 [sub_resource type="TileSet" id="TileSet_ehyle"]
 terrain_set_0/mode = 0
@@ -19,9 +19,13 @@ texture = ExtResource("1_l3dxa")
 tile_set = SubResource("TileSet_ehyle")
 
 [node name="Player" parent="." instance=ExtResource("1_kwrns")]
+collision_layer = 2
+collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(7, 7)
 
 [node name="Ball" parent="." instance=ExtResource("3_8vjx7")]
-position = Vector2(10, 0)
+position = Vector2(31, 2)
+collision_layer = 4
+collision_mask = 7

@@ -11,7 +11,7 @@ var movementDirection: String = ""
 var item: String
 var dying: bool = false;
 var isKicking: bool = false;
-var ball: Area2D;
+var ball: RigidBody2D;
 var kickHoldingTime = 0;
 
 @onready var _animated_sprite = $AnimatedSprite2D
