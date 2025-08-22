@@ -19,7 +19,6 @@ texture = ExtResource("1_l3dxa")
 tile_set = SubResource("TileSet_ehyle")
 
 [node name="Player" parent="." instance=ExtResource("1_kwrns")]
-collision_layer = 2
 collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -27,5 +26,7 @@ zoom = Vector2(7, 7)
 
 [node name="Ball" parent="." instance=ExtResource("3_8vjx7")]
 position = Vector2(31, 2)
-collision_layer = 4
 collision_mask = 7
+
+[connection signal="capturedBall" from="Player" to="Ball" method="_on_player_captured_ball"]
+[connection signal="releasedBall" from="Player" to="Ball" method="_on_player_released_ball"]

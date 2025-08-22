@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://boyats71jctcd"]
+[gd_scene load_steps=27 format=3 uid="uid://boyats71jctcd"]
 
 [ext_resource type="Texture2D" uid="uid://ylp0s1dl5jxn" path="res://assets/players/Player_16x16_Sheet_Red_A.png" id="1_hq3jp"]
-[ext_resource type="Script" uid="uid://xlubw3ow8egg" path="res://scripts/player/player.gd" id="1_q2wx3"]
+[ext_resource type="Script" uid="uid://clsboe8vcch41" path="res://scripts/player/player.gd" id="1_q2wx3"]
 [ext_resource type="Texture2D" uid="uid://rtcmfe05nrmm" path="res://assets/players/Cursor.png" id="2_0a3cv"]
 [ext_resource type="Texture2D" uid="uid://ctrq2843spq36" path="res://assets/players/Shadow_Player.png" id="2_he8c3"]
 [ext_resource type="Texture2D" uid="uid://25wva11yr206" path="res://assets/players/target.png" id="4_pqc73"]
@@ -164,8 +164,13 @@ animations = [{
 radius = 2.0
 height = 6.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p47bc"]
+size = Vector2(11, 11)
+
 [node name="player" type="CharacterBody2D" groups=["player"]]
 z_index = 2
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_q2wx3")
 
 [node name="Selector" type="Sprite2D" parent="."]
@@ -188,6 +193,7 @@ autoplay = "idle"
 shape = SubResource("CapsuleShape2D_hvquo")
 
 [node name="Target" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(2.38419e-07, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_pqc73")
@@ -195,5 +201,15 @@ offset = Vector2(90, 0)
 
 [node name="KickTimer" type="Timer" parent="."]
 
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_p47bc")
+debug_color = Color(0, 0.633929, 0.434898, 0.42)
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="KickTimer" to="." method="_on_kick_timer_timeout"]
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
